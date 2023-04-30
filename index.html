@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/css/style.css"/>
+        <title>Imageboard</title>
+
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="/pictures/glitch1.gif">
+            <h1><!-- D̷i̷g̸i̶t̴a̷l̷ ̷M̵a̵y̵h̶e̴m̶ -->#ͦͦͦͦͦͦͦ#ͥͥͦͥͥͦ#ͥͥͦͥͥͦ#ͦͦͥͦͦ#Glitch Heaven#ͦͦͦͦͦͦͦ#ͥͥͦͥͥͦ#ͥͥͦͥͥͦ#ͦͦͥͦͦ#</h1>
+        </header>
+
+        <main id="main">
+            <modal v-if="selectedId"
+            :id ="selectedId" @close="onCloseButtonClick"> 
+         </modal>
+
+            <form @submit.prevent.default="handleSubmit">
+                <input 
+                    name="title" required
+                    type="text" 
+                    placeholder="title"
+                    v-model="title"
+                >
+                <input 
+                    name="username" required
+                    type="text" 
+                    placeholder="username"
+                    v-model="username"
+                > <input 
+                    name="description" required
+                    type="text" 
+                    placeholder="description"
+                    v-model="description"
+                >
+
+                <input class="arrow"
+                    type="file" 
+                    name="file" 
+                    accept="image/*"
+                    @change="handleFileChange"
+                >
+
+
+                <button class="arrow">Submit</button>
+            </form>
+
+
+
+            <div class="imagelist">
+                <div v-for="image in images" class="entry"
+                @click="handleImageClick(image)" > 
+                    <h4>{{image.title}}</h4> 
+                    <a :href="'#' + image.id">
+                    <img v-bind:src='image.url'/></a>
+                    <div class="descript">
+                    <p>{{image.description}}</p>
+                    </div>
+                    <p>-by {{image.username}}</p>
+
+                 </div>
+            </div>
+
+            <button  v-if="moreImages" class="arr" v-on:click="onMoreButtonClick">
+                Load More Images</button>
+
+        </main>
+        <script
+            src="/js/app.js"
+            type="module"
+            crossorigin="use-credentials"
+        ></script>
+    </body>
+</html>
